@@ -1,7 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
-	fmt.Println(Processor("this happened 1f (hex) years ago,he was 10 (bin) years old"))
+	data, err := os.ReadFile("input.txt")
+	if err != nil {
+		fmt.Println("Error running your code")
+		panic(err)
+	}
+	input := string(data)
+
+	err = os.WriteFile("output.txt", []byte{input}, 0644)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
+	fmt.Println("Written successfully")
 }
