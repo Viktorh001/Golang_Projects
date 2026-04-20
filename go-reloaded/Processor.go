@@ -71,5 +71,5 @@ func Processor(s string) string {
 			result = append(result, word)
 		}
 	}
-	return strings.Join(result, " ")
+	return FormatText(strings.Join(result, " "))
 }
