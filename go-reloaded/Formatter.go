@@ -10,18 +10,18 @@ func fixSpacing(s string) string {
 }
 
 func fixPunctuation(s string) string {
-	re := regexp.MustCompile(`([.,!?;:])\s+([.,!?;:])`)
+	re := regexp.MustCompile(`([.,!?:;])\s+([.,!?;:])`)
 	for re.MatchString(s) {
 		s = re.ReplaceAllString(s, "$1$2")
 	}
 
-	re = regexp.MustCompile(`([,.!?;:'])\s+`)
+	re = regexp.MustCompile(`([.,!?;:'])\s+`)
 	s = re.ReplaceAllString(s, "$1")
 
-	re = regexp.MustCompile(`\s+([,.!?;:'])`)
+	re = regexp.MustCompile(`\s+([.,!?;:'])`)
 	s = re.ReplaceAllString(s, "$1")
 
-	re = regexp.MustCompile(`([.,!?:;]+)([^\s.,!;:])`)
+	re = regexp.MustCompile(`([.,!?;:]+)([^\s.,!?;:])`)
 	s = re.ReplaceAllString(s, "$1 $2")
 
 	return s
@@ -29,7 +29,11 @@ func fixPunctuation(s string) string {
 
 func fixQuotes(s string) string {
 	re := regexp.MustCompile(`"\s*(.*?)\s*"`)
-	return re.ReplaceAllString(s, `"$1"`)
+	s = re.ReplaceAllString(s, `"$1"`)
+
+	re = regexp.MustCompile(`'\s*(.*?)\s*'`)
+	s = re.ReplaceAllString(s, `' $1'`)
+	return s
 
 }
 
